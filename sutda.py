@@ -3,6 +3,7 @@ global p1
 global p2
 global pot
 global turnPlayer
+global cur_bet
 
 p1 = []
 p2 = []
@@ -25,15 +26,27 @@ def value(player):
 	return (player[1]+player[2])%10
 
 def fight():
+	global pot
 	if(value(p1)>value(p2)):
 		print("p1 wins")
-		pot = 0
 		p1[0] += pot
+		pot = 0
 
 	else:
 		print("p2 wins")
-		pot = 0
 		p2[0] += pot
+		pot = 0
+
+	resetGame()
+	singleGame()
+
+def surrender():
+	global turnPlayer
+	global pot
+	print("Folded")
+	playerChange()
+	turnPlayer[0] += pot
+	pot = 0
 
 	resetGame()
 	singleGame()
@@ -45,30 +58,56 @@ def resetGame():
 	lst.append(p2.pop())
 
 def bet(player):
+	global pot
+	global cur_bet
 	print(p1)
 	print(p2)
-	betMoney = int(input("bet money under"+str(player[0])))
-	if(betMoney<player[0] and betMoney>1):
-		return betMoney
-	else:
-		bet(player)
-
-def betting(prevBet):
-	global pot
-	betMoney = bet(turnPlayer)
-	print(type(betMoney))
-	print(betMoney)
-	if(type(betMoney) == int):
+	betMoney = int(input("bet money limited by "+str(player[0])+" previous betting was "+str(cur_bet)+"\n"))
+	if(betMoney<=player[0] and betMoney>=cur_bet and betMoney>0):
+		print("breaking")
+		if(betMoney == turnPlayer[0]):
+			allIn()
 		turnPlayer[0] -= betMoney
 		pot += betMoney
+		if(cur_bet == betMoney):
+			print("CALL")
+			fight()
+		else:
+			cur_bet = betMoney
+			return
+	else:
+		if(betMoney == 0):
+			surrender()
+		else:
+			print("invalid input occured, input should be over "+str(cur_bet))
+			betMoney = 0
+			bet(player)
 
-	if(turnPlayer[0] == 0 and prevBet != 0):
-		fight()
-	elif(betMoney == prevBet):
+def allIn():
+	global pot
+	if(int(input("all in or not\n"))>0):
+		pot += turnPlayer[0]
+		turnPlayer[0]=0
 		fight()
 	else:
+		surrender()
+
+def betting():
+	global pot
+	global cur_bet
+
+	if(cur_bet>=turnPlayer[0]):
+		allIn()
+	betMoney = bet(turnPlayer)
+	print(pot)
+	if(betMoney == cur_bet):
+		fight()
+	elif(betMoney == 0):
+		surrender()
+	else:
+		print("another betting")
 		playerChange()
-		betting(betMoney)
+		betting()
 	return
 
 def kiri(deck):
@@ -81,19 +120,28 @@ def appending():
 		playerChange()
 	return
 
-def singleGame():
-	global lst
+def deadOneChecking():
+	if(p1[0]<1):
+		print("Player 1 LOSES")
+		return exit()
+	elif(p2[0]<1):
+		print("Player 2 LOSES")
+		return exit()
+	else:
+		return
 
+def singleGame():
+	deadOneChecking()
+	global lst
+	global cur_bet
+	cur_bet = int(0)
 	lst = kiri(lst)
 
 	appending()
 
-	print(p1)
-	print(p2)
-
 	print(value(p1))
 	print(value(p2))
 
-	betting(-1)
+	betting()
 
 singleGame()

@@ -25,6 +25,19 @@ pot = 0
 turnPlayer = p1
 notTurnPlayer = p2
 
+# class PokerPlayer:
+# 	cost = 1000
+# 	def __init__():
+# 		print('Player init')
+
+# class PokerGame:
+# 	turnPlayer = null
+# 	notTurnPlayer = null
+# 	def __init__(player1, player2):
+# 		self.turnPlayer = player1
+# 		self.notTurnPlayer = player2
+
+
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
 def playerChange():
@@ -93,8 +106,8 @@ def bet(player):
 		global betcnt,p1stack,p2stack,betMoney
 		
 		if(turnPlayer == p1):
-			# data = str(id(p1))+","
-			data = str(p1[1])+","
+			data = str(id(p1))+","
+			data += str(p1[1])+","
 			data += str(p1[2])+","
 			data += str(p1[0])+","
 			data += str(p2[0])+","
@@ -104,8 +117,8 @@ def bet(player):
 			betMoney = random.randrange(cur_bet,turnPlayer[0])
 			p1stack += betMoney
 		else:
-			# data = str(id(p2))+","
-			data = str(p2[1])+","
+			data = str(id(p2))+","
+			data += str(p2[1])+","
 			data += str(p2[2])+","
 			data += str(p2[0])+","
 			data += str(p1[0])+","
@@ -147,8 +160,8 @@ def allIn():
 		if(random.choice([True,False])):
 			if(turnPlayer == p1):
 				
-				# data = str(id(p1))+","
-				data = str(p1[1])+","
+				data = str(id(p1))+","
+				data += str(p1[1])+","
 				data += str(p1[2])+","
 				data += str(p1[0])+","
 				data += str(p2[0])+","
@@ -159,8 +172,8 @@ def allIn():
 				p1stack += turnPlayer[0]
 			else:
 				
-				# data = str(id(p2))+","
-				data = str(p2[1])+","
+				data = str(id(p2))+","
+				data += str(p2[1])+","
 				data += str(p2[2])+","
 				data += str(p2[0])+","
 				data += str(p1[0])+","

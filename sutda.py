@@ -7,14 +7,8 @@ global pot
 global turnPlayer
 global notTurnPlayer
 global cur_bet
-<<<<<<< HEAD
 
 global setcost
-=======
-global priorityP1 = 0
-global priorityP2 = 0
-global setcost 
->>>>>>> 847b7495d5a937d6ec355c3033b64640386e572a
 setcost = 10
 p1 = []
 p2 = []
@@ -224,15 +218,6 @@ def value(player):
     return (player[1] + player[2]) % 10
 
 
-<<<<<<< HEAD
-=======
-	specialJokbo(player, notTurnPlayer, priorityP1, priorityP2)
-	#if (turnplayer == player)
-	#	return priorityP1
-	#else 
-	#	return priorityP2
-	return (player[1]+player[2])%10
->>>>>>> 847b7495d5a937d6ec355c3033b64640386e572a
 def fight():
     global pot
     if (value(p1) > value(p2)):
@@ -240,7 +225,6 @@ def fight():
         p1[0] += pot
         pot = 0
 
-<<<<<<< HEAD
     else:
         print("p2 wins")
         p2[0] += pot
@@ -248,13 +232,6 @@ def fight():
 
     resetGame()
     singleGame()
-=======
-	
-	else:
-		print("p2 wins")
-		p2[0] += pot
-		pot = 0
->>>>>>> 847b7495d5a937d6ec355c3033b64640386e572a
 
 
 def surrender():
@@ -374,20 +351,12 @@ def setcostcal():
 
 
 def gamestart():
-<<<<<<< HEAD
     global pot
 
     p1[0] -= setcostcal()
     pot += setcostcal()
     p2[0] -= setcostcal()
     pot += setcostcal()
-=======
-	global pot
-	########################3
-	global priorityP1 = 0
-	global priorityP2 = 0
-	########################3
->>>>>>> 847b7495d5a937d6ec355c3033b64640386e572a
 
 
 def singleGame():

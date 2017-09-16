@@ -1,4 +1,5 @@
 import random
+import sys
 
 global lst
 global p1
@@ -7,8 +8,14 @@ global pot
 global turnPlayer
 global notTurnPlayer
 global cur_bet
-
-global setcost 
+global f
+global p1stack
+global p2stack
+p1stack = 0
+p2stack = 0
+global betcnt
+betcnt = 0
+global setcost
 setcost = 10
 p1 = []
 p2 = []
@@ -35,15 +42,21 @@ def value(player):
 
 def fight():
 	global pot
+	global p1stack
+	global p2stack
 	if(value(p1)>value(p2)):
 		print("p1 wins")
 		p1[0] += pot
 		pot = 0
+		p1stack = 0
+		p2stack = 0
 
 	else:
 		print("p2 wins")
 		p2[0] += pot
 		pot = 0
+		p1stack = 0
+		p2stack = 0
 
 	resetGame()
 	singleGame()
@@ -51,10 +64,14 @@ def fight():
 def surrender():
 	global turnPlayer
 	global pot
+	global p1stack
+	global p2stack
 	print("Folded")
 	playerChange()
 	turnPlayer[0] += pot
 	pot = 0
+	p1stack = 0
+	p2stack = 0
 
 	resetGame()
 	singleGame()
@@ -70,7 +87,40 @@ def bet(player):
 	global cur_bet
 	print(p1)
 	print(p2)
-	betMoney = int(input("bet money limited by "+str(player[0])+" previous betting was "+str(cur_bet)+"\n"))
+	print(sys.argv)
+	print(id(turnPlayer))
+	if(sys.argv[1] == 'test'):
+		global betcnt,p1stack,p2stack,betMoney
+		betcnt = betcnt + 1
+		betMoney = random.randrange(cur_bet,turnPlayer[0])
+		if(turnPlayer == p1):
+			p1stack += betMoney
+			data = str(id(p1))+","
+			data += str(p1[1])+","
+			data += str(p1[2])+","
+			data += str(p1[0])+","
+			data += str(p2[0])+","
+			data += str(p1stack)+","
+			data += str(p2stack)+","
+			data += str(betcnt)+","
+			data += str(betMoney)+"\n"
+			
+		else:
+			p2stack += betMoney
+			data = str(id(p2))+","
+			data += str(p2[1])+","
+			data += str(p2[2])+","
+			data += str(p2[0])+","
+			data += str(p1[0])+","
+			data += str(p2stack)+","
+			data += str(p1stack)+","
+			data += str(betcnt)+","
+			data += str(betMoney)+"\n"
+
+		f.write(data)
+		data = ""
+	else:
+		betMoney = int(input("bet money limited by "+str(player[0])+" previous betting was "+str(cur_bet)+"\n"))
 	if(betMoney<=player[0] and betMoney>=cur_bet and betMoney>0):
 		print("breaking")
 		if(notTurnPlayer[0] == 0):
@@ -93,6 +143,40 @@ def bet(player):
 
 def allIn():
 	global pot
+	global betcnt,p1stack,p2stack,betMoney
+	if(sys.argv[1] == 'test'):
+		if(random.choice([True,False])):
+			betcnt = betcnt+1
+			pot += turnPlayer[0]
+			turnPlayer[0] = 0
+			if(turnPlayer == p1):
+				p1stack += betMoney
+				data = str(id(p1))+","
+				data += str(p1[1])+","
+				data += str(p1[2])+","
+				data += str(p1[0])+","
+				data += str(p2[0])+","
+				data += str(p1stack)+","
+				data += str(p2stack)+","
+				data += str(betcnt)+","
+				data += str(betMoney)+"\n"
+			else:
+				p2stack += betMoney
+				data = str(id(p2))+","
+				data += str(p2[1])+","
+				data += str(p2[2])+","
+				data += str(p2[0])+","
+				data += str(p1[0])+","
+				data += str(p2stack)+","
+				data += str(p1stack)+","
+				data += str(betcnt)+","
+				data += str(betMoney)+"\n"
+			
+			f.write(data)
+			data = ""
+			fight()
+		else:
+			surrender()
 	if(int(input("all in or not\n"))>0):
 		pot += turnPlayer[0]
 		turnPlayer[0]=0
@@ -176,4 +260,7 @@ def singleGame():
 
 	betting()
 
+if(sys.argv[1] == 'test'):
+	global f
+	f = open('testdata.txt','a')
 singleGame()

@@ -108,12 +108,15 @@ def surrender():
 	global pot
 	global p1stack
 	global p2stack
+	global betcnt
 	print("Folded")
 	playerChange()
 	turnPlayer[0] += pot
 	pot = 0
+
 	p1stack = 0
 	p2stack = 0
+	betcnt = 0
 
 	resetGame()
 	singleGame()
@@ -147,7 +150,7 @@ def bet(player):
 
 			betMoney = int(serve.betting(p1[1],p1[2],p1[0],p2[0],p1stack,p2stack,betcnt))
 			if betMoney < cur_bet:
-				betMoney = 0
+				betMoney = cur_bet
 			elif betMoney > turnPlayer[0]:
 				betMoney = turnPlayer[0]
 			# betMoney = random.randrange(cur_bet, turnPlayer[0] + 1)
@@ -168,7 +171,7 @@ def bet(player):
 
 			betMoney = int(serve2.betting(p2[1],p2[2],p2[0],p1[0],p2stack,p1stack,betcnt))
 			if betMoney < cur_bet:
-				betMoney = 0
+				betMoney = cur_bet
 			elif betMoney > turnPlayer[0]:
 				betMoney = turnPlayer[0]
 			# betMoney = random.randrange(cur_bet, turnPlayer[0] + 1)

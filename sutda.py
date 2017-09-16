@@ -4,6 +4,8 @@ import sys
 global lst
 global p1
 global p2
+global Secondp1
+global Secondp2
 global pot
 global turnPlayer
 global notTurnPlayer
@@ -11,48 +13,39 @@ global cur_bet
 global f
 global p1stack
 global p2stack
+global Secondp1stack
+global Secondp2stack
 p1stack = 0
 p2stack = 0
+Secondp1stack = 0
+Secondp2stack = 0
 global betcnt
 betcnt = 0
 global setcost
 setcost = 10
 global IsCall
 IsCall = 0
+global showJokbo
+global showJokbo2
+showJokbo = ""
+showJokbo2 = ""
 p1 = []
 p2 = []
+Secondp1 = []
+Secondp2 = []
 p1.append(1000)
 p2.append(1000)
 pot = 0
 turnPlayer = p1
 notTurnPlayer = p2
 
-# class PokerPlayer:
-# 	cost = 1000
-# 	def __init__():
-# 		print('Player init')
-
-# class PokerGame:
-# 	turnPlayer = null
-# 	notTurnPlayer = null
-# 	def __init__(player1, player2):
-# 		self.turnPlayer = player1
-# 		self.notTurnPlayer = player2
-
-
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-class familytree:                                                       # Lists of Jokbo                                                     
-        Sol = [1,1]
-        Maejo = [2,2]
-        Sakura = [3,3]
-        Heukssari = [4,4]
-        Cho = [5,5]
-        Mokdan = [6,6]
-        Hongssari = [7,7]
-        Gongsan = [8,8]
-        Gukjin = [9,9]
-        Pung = [10,10]
+
+def Jokbo(firstCard,secondCard):
+	if(firstCard + secondCard = 4 || firstCard * secondCard = 9)
+		
+	
         
 def playerChange():
 	global turnPlayer
@@ -71,19 +64,27 @@ def fight():
 	global pot
 	global p1stack
 	global p2stack
-	if(value(p1)>value(p2)):
-		print("p1 wins")
-		p1[0] += pot
-		pot = 0
-		p1stack = 0
-		p2stack = 0
+	global IsCall
+	global showJokbo
+	
+	if(IsCall = 1):
+		showJokbo = Jokbo(p1,Secondp1)
+		showJokbo2 = Jokbo(p2, Secondp2)
+		
+		
+			if(value(p1)>value(p2)):
+				print("p1 wins")
+				p1[0] += pot
+				pot = 0
+				p1stack = 0
+				p2stack = 0
 
-	else:
-		print("p2 wins")
-		p2[0] += pot
-		pot = 0
-		p1stack = 0
-		p2stack = 0
+			else:
+				print("p2 wins")
+				p2[0] += pot
+				pot = 0
+				p1stack = 0
+				p2stack = 0
 
 	resetGame()
 	singleGame()
@@ -108,6 +109,10 @@ def resetGame():
 	lst.append(p1.pop())
 	lst.append(p2.pop())
 	lst.append(p2.pop())
+	lst.append(Secondp1.pop())
+	lst.append(Secondp1.pop())
+	lst.append(Secondp2.pop())
+	lst.append(Secondp2.pop())	
 
 def bet(player):
 	global pot
@@ -120,8 +125,8 @@ def bet(player):
 		global betcnt,p1stack,p2stack,betMoney
 		
 		if(turnPlayer == p1):
-			data = str(id(p1))+","
-			data += str(p1[1])+","
+			# data = str(id(p1))+","
+			data = str(p1[1])+","
 			data += str(p1[2])+","
 			data += str(p1[0])+","
 			data += str(p2[0])+","
@@ -131,8 +136,8 @@ def bet(player):
 			betMoney = random.randrange(cur_bet,turnPlayer[0])
 			p1stack += betMoney
 		else:
-			data = str(id(p2))+","
-			data += str(p2[1])+","
+			# data = str(id(p2))+","
+			data = str(p2[1])+","
 			data += str(p2[2])+","
 			data += str(p2[0])+","
 			data += str(p1[0])+","
@@ -170,9 +175,10 @@ def Call():
         
 		print("Do you want to Call? Y or N")
 		if(sys.argv[1] == Y)
-			IsCall = 1;										# Player has called
+			IsCall = 1										# Player has called
+			fight()
 			else
-				fight();
+				fight()
         
 def allIn():
 	global pot
@@ -181,8 +187,8 @@ def allIn():
 		if(random.choice([True,False])):
 			if(turnPlayer == p1):
 				
-				data = str(id(p1))+","
-				data += str(p1[1])+","
+				# data = str(id(p1))+","
+				data = str(p1[1])+","
 				data += str(p1[2])+","
 				data += str(p1[0])+","
 				data += str(p2[0])+","
@@ -193,8 +199,8 @@ def allIn():
 				p1stack += turnPlayer[0]
 			else:
 				
-				data = str(id(p2))+","
-				data += str(p2[1])+","
+				# data = str(id(p2))+","
+				data = str(p2[1])+","
 				data += str(p2[2])+","
 				data += str(p2[0])+","
 				data += str(p1[0])+","
@@ -242,11 +248,19 @@ def kiri(deck):
 	return deck
 
 def appending():
+	global IsCall
 	global turnPlayer
-	for i in range(4):
-		turnPlayer.append(lst.pop())
-		playerChange()
-	return
+	global Secondp1
+	if(IsCall == 1)												# if player has called draw one more card
+		for i in range(4):
+			Secondp1.append(lst.pop())
+			playerChange()
+			return
+			else
+				for i in range(4):
+					turnPlayer.append(lst.pop())
+					playerChange()
+				return
 
 def deadOneChecking():
 	if(p1[0]<1):

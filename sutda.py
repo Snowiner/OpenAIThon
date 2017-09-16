@@ -49,13 +49,31 @@ notTurnPlayer = p2
 
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-
 def Jokbo(firstCard,secondCard):
-	if(firstCard + secondCard = 4 || firstCard * secondCard = 9)
-		
-	
-        
-def playerChange():
+	if(firstCard + secondCard >= 11)	# for 2nd cards value															
+		firstCard = firstCard % 10		
+		secondCard = secondCard %10
+		if(firstCard + secondCard = 11 && firstCard * secondCard = 24) 
+			print("38GwangDDeng")
+				if(firstCard + secondCard = 4 && firstCard * secondCard = 9)
+					print("GwangDDeng")
+						if(firstCard == secondCard)
+							print(firstCard, "DDeng")
+								if(firstCard + secondCard = 3 && firstCard * secondCard = 12)
+									print("ArLi")
+										if(firstCard + secondCard = 5 && firstCard * secondCard = 4)
+											print("Doksa")
+												if(firstCard + secondCard = 10 && firstCard * secondCard = 9)
+													print("9BBing")
+														if(firstCard + secondCard = 11 && firstCard * secondCard = 10)
+															print("JangBBing")
+																if(firstCard + secondCard = 10 && firstCard * secondCard = 24)
+																	print("Sseryuk")
+																		if(firstCard + secondCard = 9)
+																			print("Gab5")
+																			
+														
+def playerChange():											
 	global turnPlayer
 	if(turnPlayer == p1):
 		turnPlayer = p2

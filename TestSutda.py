@@ -2,6 +2,7 @@ import random
 import sys
 import serve
 import serve2
+from time import sleep
 
 global lst
 global p1
@@ -264,12 +265,13 @@ def allIn():
 			fight()
 		else:
 			surrender()
-	if(int(input("all in or not\n"))>0):
-		pot += turnPlayer[0]
-		turnPlayer[0]=0
-		fight()
 	else:
-		surrender()
+		if(int(input("all in or not\n"))>0):
+			pot += turnPlayer[0]
+			turnPlayer[0]=0
+			fight()
+		else:
+			surrender()
 
 def betting():
 	global pot
@@ -298,19 +300,9 @@ def appending():
 	for i in range(4):
 		turnPlayer.append(lst.pop())
 		playerChange()
-	return
 
-def deadOneChecking():
-	if(p1[0]<1):
-		print("Player 1 LOSES")
-		ValueReset()
-		singleGame()
-	elif(p2[0]<1):
-		print("Player 2 LOSES")
-		ValueReset()
-		singleGame()
-	else:
-		return
+	print(turnPlayer)
+	return
 
 def min():
 	if(p1[0]>p2[0]):
@@ -334,7 +326,13 @@ def gamestart():
 	pot += setcostcal()
 
 def singleGame():
-	deadOneChecking()
+	if(p1[0]<1):
+		print("Player 1 LOSES")
+		return
+	elif(p2[0]<1):
+		print("Player 2 LOSES")
+		return
+
 	global lst
 	global cur_bet
 	gamestart()
@@ -357,5 +355,7 @@ if(sys.argv[1] == 'test'):
 	f1 = open('dataset_new.csv','a')
 	f2 = open('dataset2_new.csv','a')
 
-ValueReset()
-singleGame()
+while(1):
+	ValueReset()
+	singleGame()
+	resetGame()

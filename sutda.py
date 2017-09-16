@@ -18,6 +18,7 @@ betcnt = 0
 global setcost
 setcost = 10
 global IsCall
+IsCall = 0
 p1 = []
 p2 = []
 p1.append(1000)
@@ -140,8 +141,7 @@ def bet(player):
 		turnPlayer[0] -= betMoney
 		pot += betMoney
 		if(cur_bet == betMoney):
-			print("CALL")
-			fight()
+			Call()
 		else:
 			cur_bet = betMoney
 			return
@@ -152,7 +152,15 @@ def bet(player):
 			print("invalid input occured, input should be over "+str(cur_bet))
 			betMoney = 0
 			bet(player)
-
+def Call():
+        global IsCall
+        
+		print("Do you want to Call? Y or N")
+		if(sys.argv[1] == Y)
+			IsCall = 1;										# Player has called
+			else
+				fight();
+        
 def allIn():
 	global pot
 	global betcnt,p1stack,p2stack,turnPlayer

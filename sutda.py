@@ -96,8 +96,15 @@ def playerChange():
 	return
 
 def value(player):
-	return (player[1]+player[2])%10
 
+	#write normal jokbo here
+	#
+	#
+	#
+
+	specialJokbo(player, notTurnPlayer, priorityP1, priorityP2)
+	#return priorityP1
+	return  (player[1]+player[2])%10
 def fight():
 	global pot
 	if(value(p1)>value(p2)):

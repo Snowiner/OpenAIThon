@@ -9,7 +9,7 @@ key, value = reader.read(filename_queue)
 record_defaults = [[0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.]]
 xy = tf.decode_csv(value, record_defaults=record_defaults)
 
-train_x_batch, train_y_batch = tf.train.batch([xy[0:-1], xy[-1:]], batch_size=500)
+train_x_batch, train_y_batch = tf.train.batch([xy[0:-1], xy[-1:]], batch_size=1000)
 
 X = tf.placeholder(tf.float32, shape=[None, 7])
 Y = tf.placeholder(tf.float32, shape=[None, 1])

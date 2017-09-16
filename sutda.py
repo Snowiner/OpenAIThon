@@ -1,20 +1,18 @@
 import random
 
-global lst
-global p1
-global p2
-global pot
-global turnPlayer
-global notTurnPlayer
-global cur_bet
-
-global setcost
+lst = []
+# p1
+# p2
+pot = 0
+cur_bet = 0
+priorityP1 = 0
+priorityP2 = 0
 setcost = 10
 p1 = []
 p2 = []
 p1.append(1000)
 p2.append(1000)
-pot = 0
+
 turnPlayer = p1
 notTurnPlayer = p2
 
@@ -22,62 +20,68 @@ lst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 
 def p1jokbo(p1):
+    global priorityP1
+    global priorityP2
+
     p1Card1 = p1[1]
     p1Card2 = p1[2]
 
     if p1Card1 >= 11:
         p1Card1 = p1[1] % 10
-        elif p1Card2 >= 11:
-                p1Card2 = p1[2] % 10
+    elif p1Card2 >= 11:
+        p1Card2 = p1[2] % 10
 
     # 삼팔광땡
-    if p1Card1 + p1Card2 = 11 and p1Card1 * p1Card2 = 24:
-    global priorityP1 = 100
-    return
+    if p1Card1 + p1Card2 == 11 and p1Card1 * p1Card2 == 24:
+        print('sampal')
+        priorityP1 = 100
+        return
 
     # 광땡
-    if p1Card1 + p1Card2 = 4 and p1Card1 * p1Card2 = 9:
-    global priorityP1 = 95
-    return
+    if p1Card1 + p1Card2 == 4 and p1Card1 * p1Card2 == 9:
+
+        print('gaungddeng')
+        priorityP1 = 95
+        return
 
     # 땡
     if p1Card1 == p1Card2:
-        global priorityP1 = 90
-    return
+        priorityP1= 90
+        return
 
     # 알리
-    if p1Card1 + p1Card2 = 3 and p1Card1 * p1Card2 = 12:
-    global priorityP1 = 85
-    return
+    if p1Card1 + p1Card2 == 3 and p1Card1 * p1Card2 == 12:
+        priorityP1= 85
+        return
 
     # 독사
-    if p1Card1 + p1Card2 = 5 and p1Card1 * p1Card2 = 4:
-    global priorityP1 = 80
-    return
+    if p1Card1 + p1Card2 == 5 and p1Card1 * p1Card2 == 4:
+        priorityP1= 80
+        return
 
     # 구삥
-    if p1Card1 + p1Card2 = 10 and p1Card1 * p1Card2 = 9:
-    global priorityP1 = 75
-    return
+    if p1Card1 + p1Card2 == 10 and p1Card1 * p1Card2 == 9:
+        priorityP1= 75
+        return
 
     # 장삥
-    if p1Card1 + p1Card2 = 11 and p1Card1 * p1Card2 = 10:
-    global priorityP1 = 70
-    return
+    if p1Card1 + p1Card2 == 11 and p1Card1 * p1Card2 == 10:
+        priorityP1= 70
+        return
 
     # 세륙
-    if p1Card1 + p1Card2 = 10 and p1Card1 * p1Card2 = 24:
-    global priorityP1 = 65
-    return
+    if p1Card1 + p1Card2 == 10 and p1Card1 * p1Card2 == 24:
+        priorityP1 = 65
+        return
 
         # 갑오
-    if p1Card1 + p1Card2 = 9:
-    global priorityP1 = 60
-    return
+    if p1Card1 + p1Card2 == 9:
+        priorityP1 = 60
+        return
 
 
 def p2Jokbo(p2):
-    P2Card1 = p2[1]
+    p2Card1 = p2[1]
     p2Card2 = p2[2]
 
     if p2[1] >= 11:
@@ -86,49 +90,49 @@ def p2Jokbo(p2):
             p2Card2 = p2[2] % 10
 
     # 삼팔광땡
-    if p2Card1 + p2Card2 = 11 and p2Card1 * p2Card2 = 24:
-    global priorityP2 = 100
-    return
+    if p2Card1 + p2Card2 == 11 and p2Card1 * p2Card2 == 24:
+        priorityP2= 100
+        return
 
     # 광땡
-    if p2Card1 + p2Card2 = 4 and p2Card1 * p2Card2 = 9:
-    global priorityP2 = 95
-    return
+    if p2Card1 + p2Card2 == 4 and p2Card1 * p2Card2 == 9:
+        priorityP2 = 95
+        return
 
     # 땡
     if p2Card1 == p2Card2:
-        global priorityP2 = 90
-    return
+        priorityP2 = 90
+        return
 
     # 알리
-    if p2Card1 + p2Card2 = 3 and p2Card1 * p2Card2 = 12:
-    global priorityP2 = 85
-    return
+    if p2Card1 + p2Card2 == 3 and p2Card1 * p2Card2 == 12:
+        priorityP2 = 85
+        return
 
     # 독사
-    if p2Card1 + p2Card2 = 5 and p2Card1 * p2Card2 = 4:
-    global priorityP2 = 80
-    return
+    if p2Card1 + p2Card2 == 5 and p2Card1 * p2Card2 == 4:
+        priorityP2 = 80
+        return
 
     # 구삥
-    if p2Card1 + p2Card2 = 10 and p2Card1 * p2Card2 = 9:
-    global priorityP2 = 75
-    return
+    if p2Card1 + p2Card2 == 10 and p2Card1 * p2Card2 == 9:
+        priorityP2 = 75
+        return
 
-    # 장삥
-    if p2Card1 + p2Card2 = 11 and p2Card1 * p2Card2 = 10:
-    global priorityP2 = 70
-    return
+    # 장삥q
+    if p2Card1 + p2Card2 == 11 and p2Card1 * p2Card2 == 10:
+        priorityP2 = 70
+        return
 
     # 세륙
-    if p2Card1 + p2Card2 = 10 and p2Card1 * p2Card2 = 24:
-    global priorityP2 = 65
-    return
+    if p2Card1 + p2Card2 == 10 and p2Card1 * p2Card2 == 24:
+        priorityP2 = 65
+        return
 
     # 갑오
-    if p2Card1 + p2Card2 = 9:
-    global priorityP2 = 60
-    return
+    if p2Card1 + p2Card2 == 9:
+        priorityP2 = 60
+        return
 
 
 def specialJokbo(p1, p2, p1Value, p2Value):
@@ -138,61 +142,64 @@ def specialJokbo(p1, p2, p1Value, p2Value):
     p2Card1 = p2[1]
     p2Card2 = p2[2]
 
-    goddeng =
-    alri =
+    goddeng = 79
+    alri = 65
 
-    jangddeng =
+    jangddeng = 80
 
-    kuangddeng =
+    kuangddeng =90
 
     # 땡잡이의 경우
-    if ((p1Card1 % 10 == 3 and p1Card2 % 10 == 7 and p2Value <= goddeng) or (
-                    p1Card1 % 10 == 7 & p1Card2 % 10 == 3 and p2Value <= goddeng)):
-        global priorityP1 = 100
-        global priorityP2 = 0
+    if ((p1Card1 % 10 == 3 and p1Card2 % 10 == 7 and p2Value <= goddeng and p2Value >=71) or (
+                    p1Card1 % 10 == 7 & p1Card2 % 10 == 3 and p2Value <= goddeng and p2Value>=71)):
+
+        priorityP1 = 100
+        priorityP2 = 0
         return
 
     if ((p2Card1 % 10 == 3 and p2Card2 % 10 == 7 and p1Value <= goddeng) or (
                     p2Card1 % 10 == 7 & p2Card2 % 10 == 3 and p1Value <= goddeng)):
-        global priorityP1 = 0
-        global priorityP2 = 100
+
+        priorityP1= 0
+        priorityP2 = 100
         return
 
     # 멍텅구리 구사
     if ((p1Card1 == 14 and p1Card2 == 19 and p2Value <= jangddeng) and (
                 p2Card1 == 14 and p2Card2 == 19 and p1Value <= jangddeng)):
-        global priorityP1 = 0
-        global priorityP2 = 0
+        priorityP1= 0
+        priorityP2= 0
         return
 
         # 구사
     if ((p1Card1 % 10 == 4 and p1Card2 % 10 == 9 and p2Value <= alri) or (
                     p1Card1 % 10 == 9 & p1Card2 % 10 == 4 and p2Value <= alri)):
-        global priorityP1 = 100
-        global priorityP2 = 0
+
+        priorityP1= 100
+        priorityP2= 0
         return
 
     if ((p2Card1 % 10 == 4 and p2Card2 % 10 == 9 and p1Value <= alri) or (
                     p2Card1 % 10 == 9 & p2Card2 % 10 == 4 and p1Value <= alri)):
-        global priorityP1 = 0
-        global priorityP2 = 100
+        priorityP1= 0
+        priorityP2= 100
         return
 
     # 암행어사
-    if (p1Card1 == 14 and p1Card2 == 17 and p2Value == kuangddeng)
-        global priorityP1 = 100
-        global priorityP2 = 0
+    if (p1Card1 == 14 and p1Card2 == 17 and p2Value == kuangddeng):
+        priorityP1= 100
+        priorityP2= 0
         return
-    if (p1Card1 == 14 and p1Card2 == 17 and p2Value != kuangddeng)
-        global priorityP1 =  # 1끗 가치
+    if (p1Card1 == 14 and p1Card2 == 17 and p2Value != kuangddeng):
+        priorityP1= 23  # 1끗 가치
         return
 
-    if (p2Card1 == 14 and p2Card2 == 17 and p1Value == kuangddeng)
-        global priorityP2 = 100
-        global priorityP1 = 0
+    if (p2Card1 == 14 and p2Card2 == 17 and p1Value == kuangddeng):
+        priorityP2= 100
+        priorityP1= 0
         return
-    if (p2Card1 == 14 and p2Card2 == 17 and p1Value != kuangddeng)
-        global priorityP2 =  # 1끗 가치
+    if (p2Card1 == 14 and p2Card2 == 17 and p1Value != kuangddeng):
+        priorityP2= 23# 1끗 가치
         return
 
 
@@ -208,9 +215,9 @@ def playerChange():
 
 
 def value(player):
-    if (player == turnPlayer)
-        p1Jokbo(player)
-        else if (player == notTurnPlayer)
+    if (player == turnPlayer):
+        p1jokbo(player)
+    elif (player == notTurnPlayer):
             p2Jokbo(player)
 
     specialJokbo(player, notTurnPlayer, priorityP1, priorityP2)

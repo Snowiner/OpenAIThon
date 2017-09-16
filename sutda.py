@@ -20,6 +20,71 @@ notTurnPlayer = p2
 
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
+
+def specialJokbo(p1, p2, p1Value, p2Value):
+        p1Card1 = p1[1]
+        p1Card2 = p1[2]
+
+        p2Card1 = p2[1]
+        p2Card2 = p2[2]
+
+        goddeng = #구땡 값 넣어주세요~!
+        alri = #알리 값 넣어주세요~!
+
+        jangddeng =
+
+        kuangddeng =
+
+        #땡잡이의 경우  
+        if((p1Card1%10==3 && p1Card2%10==7 && p2Value <= goddeng)||(p1Card1%10==7 & p1Card2%10==3 && p2Value <= goddeng))
+                global priorityP1 = 100
+                global priorityP2 = 0
+                return
+
+        if((p2Card1%10==3 && p2Card2%10==7 && p1Value <= goddeng)||(p2Card1%10==7 & p2Card2%10==3 && p1Value <= goddeng))
+                global priorityP1 = 0
+                global priorityP2 = 100
+                return
+
+
+        #멍텅구리 구사
+        if((p1Card1==14 && p1Card2==19 && p2Value <= jangddeng) && (p2Card1==14 && p2Card2==19 && p1Value <= jangddeng))
+                global priorityP1 = 0
+                global priorityP2 = 0
+                return
+
+       #구사
+        if((p1Card1%10==4 && p1Card2%10==9 && p2Value <= alri)||(p1Card1%10==9 & p1Card2%10==4 && p2Value <= alri))
+                global priorityP1 = 100
+                global priorityP2 = 0
+                return
+
+        if((p2Card1%10==4 && p2Card2%10==9 && p1Value <= alri)||(p2Card1%10==9 & p2Card2%10==4 && p1Value <= alri))
+                global priorityP1 = 0
+                global priorityP2 = 100
+                return
+
+
+        #암행어사
+        if(p1Card1==14 && p1Card2==17 && p2Value == kuangddeng)
+                global priorityP1 = 100
+                global priorityP2 = 0
+                return
+        if(p1Card1==14 && p1Card2==17 && p2Value != kuangddeng)
+                global priorityP1 = #1끗 가치
+                return
+
+        if(p2Card1==14 && p2Card2==17 && p1Value == kuangddeng)
+                global priorityP2 = 100
+                global priorityP1 = 0
+                return
+        if(p2Card1==14 && p2Card2==17 && p1Value != kuangddeng)
+                global priorityP2 = #1끗 가치
+                return
+
+
+
+
 def playerChange():
 	global turnPlayer
 	if(turnPlayer == p1):

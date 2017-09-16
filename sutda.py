@@ -17,6 +17,7 @@ global betcnt
 betcnt = 0
 global setcost
 setcost = 10
+global IsCall
 p1 = []
 p2 = []
 p1.append(1000)
@@ -27,6 +28,18 @@ notTurnPlayer = p2
 
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
+class familytree:                                                       # Lists of Jokbo                                                     
+        Sol = [1,1]
+        Maejo = [2,2]
+        Sakura = [3,3]
+        Heukssari = [4,4]
+        Cho = [5,5]
+        Mokdan = [6,6]
+        Hongssari = [7,7]
+        Gongsan = [8,8]
+        Gukjin = [9,9]
+        Pung = [10,10]
+        
 def playerChange():
 	global turnPlayer
 	if(turnPlayer == p1):

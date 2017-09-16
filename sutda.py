@@ -1,16 +1,22 @@
+import random
+
 global lst
 global p1
 global p2
 global pot
 global turnPlayer
+global notTurnPlayer
 global cur_bet
 
+global setcost 
+setcost = 10
 p1 = []
 p2 = []
-p1.append(100)
-p2.append(100)
+p1.append(1000)
+p2.append(1000)
 pot = 0
 turnPlayer = p1
+notTurnPlayer = p2
 
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
@@ -18,8 +24,10 @@ def playerChange():
 	global turnPlayer
 	if(turnPlayer == p1):
 		turnPlayer = p2
+		notTurnPlayer = p1
 	else:
 		turnPlayer = p1
+		notTurnPlayer = p2
 	return
 
 def value(player):
@@ -65,8 +73,8 @@ def bet(player):
 	betMoney = int(input("bet money limited by "+str(player[0])+" previous betting was "+str(cur_bet)+"\n"))
 	if(betMoney<=player[0] and betMoney>=cur_bet and betMoney>0):
 		print("breaking")
-		if(betMoney == turnPlayer[0]):
-			allIn()
+		if(notTurnPlayer[0] == 0):
+			fight()
 		turnPlayer[0] -= betMoney
 		pot += betMoney
 		if(cur_bet == betMoney):
@@ -111,6 +119,7 @@ def betting():
 	return
 
 def kiri(deck):
+	random.shuffle(deck)
 	return deck
 
 def appending():
@@ -130,10 +139,33 @@ def deadOneChecking():
 	else:
 		return
 
+def min():
+	if(p1[0]>p2[0]):
+		return p2[0]
+	else:
+		return p1[0]
+
+def setcostcal():
+	global setcost
+	if(min()<setcost):
+		return min()
+	else:
+		return setcost
+
+def gamestart():
+	global pot
+
+	p1[0] -= setcostcal()
+	pot += setcostcal()
+	p2[0] -= setcostcal()
+	pot += setcostcal()
+
 def singleGame():
 	deadOneChecking()
 	global lst
 	global cur_bet
+	gamestart()
+
 	cur_bet = int(0)
 	lst = kiri(lst)
 

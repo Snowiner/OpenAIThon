@@ -13,14 +13,22 @@ global cur_bet
 global f
 global p1stack
 global p2stack
+global Secondp1stack
+global Secondp2stack
 p1stack = 0
 p2stack = 0
+Secondp1stack = 0
+Secondp2stack = 0
 global betcnt
 betcnt = 0
 global setcost
 setcost = 10
 global IsCall
 IsCall = 0
+global showJokbo
+global showJokbo2
+showJokbo = ""
+showJokbo2 = ""
 p1 = []
 p2 = []
 Secondp1 = []
@@ -33,7 +41,9 @@ notTurnPlayer = p2
 
 lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-class familytree:                                                       # Lists of Jokbo                                                     
+
+
+"'class familytree:                                                       # Lists of Jokbo                                                     
         Sol = [1,1]
         Maejo = [2,2]
         Sakura = [3,3]
@@ -44,6 +54,12 @@ class familytree:                                                       # Lists 
         Gongsan = [8,8]
         Gukjin = [9,9]
         Pung = [10,10]
+"' 	
+
+def Jokbo(firstCard,secondCard):
+	for i in range(20)
+		
+	
         
 def playerChange():
 	global turnPlayer
@@ -63,8 +79,11 @@ def fight():
 	global p1stack
 	global p2stack
 	global IsCall
+	global showJokbo
 	
 	if(IsCall = 1):
+		showJokbo = Jokbo(p1,Secondp1)
+		showJokbo2 = Jokbo(p2, Secondp2)
 		
 		
 			if(value(p1)>value(p2)):
@@ -104,6 +123,10 @@ def resetGame():
 	lst.append(p1.pop())
 	lst.append(p2.pop())
 	lst.append(p2.pop())
+	lst.append(Secondp1.pop())
+	lst.append(Secondp1.pop())
+	lst.append(Secondp2.pop())
+	lst.append(Secondp2.pop())	
 
 def bet(player):
 	global pot
@@ -166,7 +189,7 @@ def Call():
         
 		print("Do you want to Call? Y or N")
 		if(sys.argv[1] == Y)
-			IsCall = 1;										# Player has called
+			IsCall = 1										# Player has called
 			fight()
 			else
 				fight()

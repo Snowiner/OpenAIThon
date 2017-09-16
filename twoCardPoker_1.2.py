@@ -4,163 +4,84 @@ import serve
 import serve2
 
 class Game:
-    lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-    def setPlayer1(self,player):
-        self.player1 = player
-    def setPlayer2(self,player):
-        self.player2 = player
+    def __init__(self, player1, player2):
+        self.pot = 0
+        self.lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        self.players = [player1,player2]
+        self.turnPlayer = random.randrange(0,2)
+        self.cur_bet = 0
+        self.betcnt = 0
+
+    def cardAppending():
+        self.lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        random.shuffle(self.lst)
+        self.players[self.turnPlayer].cards[0] = self.lst.pop()
+        self.players[(self.turnPlayer+1)%2].cards[0] = self.lst.pop()
+        self.players[self.turnPlayer].cards[1] = self.lst.pop()
+        self.players[(self.turnPlayer+1)%2].cards[1] = self.lst.pop()
+
+    def clearBoard():
+        self.pot = 0
+        self.betcnt = 0
+        self.players[0].potMoney = 0
+        self.players[1].potMoney = 0
+
+    def playerChange():
+        self.turnPlayer = (self.turnPlayer+1)%2
+
+    def input_user():
+
+    def input_random(min, max):
+        return random.randrange(min,max+1)
+
+    def input_AI():
+
+
+    def fight(data):
+        if (self.players[0].value() > self.players[1].value()):
+            print("player1 wins")
+            data.fileStream1.write(data.data1)
+            data.clearData()
+            self.players[0].money += self.pot
+            self.clearBoard()
+
+        elif (self.players[0].value() < self.players[1].value()):
+            print("player2 wins")
+            data.fileStream2.write(data.data2)
+            data.clearData()
+            self.players[1].money += self.pot
+            self.clearBoard()
+
+        else:
+            print("draw")
+
+    def surrender():
+        print("Folded by "+self.players[self.turnPlayer])
+        self.players[(self.turnPlayer+1)%2].money+= pot
+        self.clearBoard()
 
 class Player:
+    def __init__(self,type):
+        self.type = type
+        self.money = 1000
+        self.cards = [0,0]
+        self.potMoney = 0
 
+    def value():
+        return (self.cards[0] + self.cards[1]) % 10
 
-# global lst
-global p1
-global p2
-global pot
-global turnPlayer
-global notTurnPlayer
-global cur_bet
-global f
-global f1
-global f2
-global data
-global data1
-global data2
-global p1stack
-global p2stack
-global betcnt
-global setcost
-global showJokbo
-global showJokbo2
+class Data:
+    def __init__(self):
+        self.data1 = ""
+        self.data2 = ""
+        self.fileStream1 = open('dataset_new.csv','a')
+        self.fileStream2 = open('dataset2_new.csv','a')
 
+    def clearData():
+        self.data1 = ""
+        self.data2 = ""
 
-def ValueReset():
-    global lst
-    global p1
-    global p2
-    global pot
-    global turnPlayer
-    global notTurnPlayer
-    global cur_bet
-    global f
-    global f1
-    global f2
-    global data
-    global data1
-    global data2
-    global p1stack
-    global p2stack
-    global betcnt
-    global setcost
-    global showJokbo
-    global showJokbo2
-    data = ""
-    data1 = ""
-    data2 = ""
-    p1stack = 0
-    p2stack = 0
-    betcnt = 0
-    setcost = 10
-    showJokbo = ""
-    showJokbo2 = ""
-    p1 = []
-    p2 = []
-    p1.append(1000)
-    p2.append(1000)
-    pot = 0
-    turnPlayer = p1
-    notTurnPlayer = p2
-    lst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-
-
-def Set(firstCard, secondCard):
-    Jokbo = {'38GwangDDeng': 100,
-             'GwangDDeng': 95,
-             'DDeng': 90,
-             'ArLi': 85,
-             'Doksa': 80,
-             '9BBing': 75,
-             'JangBBing': 70,
-             'Sseryuk': 65,
-             'Gab5': 60
-             }
-
-
-# Jokbo.get('38GwangDDeng')
-
-def playerChange():
-    global turnPlayer
-    if (turnPlayer == p1):
-        turnPlayer = p2
-        notTurnPlayer = p1
-    else:
-        turnPlayer = p1
-        notTurnPlayer = p2
-    return
-
-
-def value(player):
-    return (player[1] + player[2]) % 10
-
-
-def fight():
-    global pot
-    global p1stack
-    global p2stack
-    global showJokbo
-    # showJokbo = Jokbo(p1[1],p1[2])
-    # showJokbo2 = Jokbo(p2[1],p2[2])
-
-    global f1
-    global data1
-    global f2
-    global data2
-
-    if (value(p1) > value(p2)):
-        print("p1 wins")
-        f1.write(data1)
-        data1 = ""
-        data2 = ""
-        p1[0] += pot
-        pot = 0
-        p1stack = 0
-        p2stack = 0
-    elif (value(p2) > value(p1)):
-        print("p2 wins")
-        f2.write(data2)
-        data1 = ""
-        data2 = ""
-        p2[0] += pot
-        pot = 0
-        p1stack = 0
-        p2stack = 0
-
-    return
-
-
-def surrender():
-    global turnPlayer
-    global pot
-    global p1stack
-    global p2stack
-    global betcnt
-    print("Folded")
-
-    notTurnPlayer[0] += pot
-    pot = 0
-
-    p1stack = 0
-    p2stack = 0
-    betcnt = 0
-
-    return
-
-
-def resetGame():
-    lst.append(p1.pop())
-    lst.append(p1.pop())
-    lst.append(p2.pop())
-    lst.append(p2.pop())
+    def buildTuple(game):
 
 
 def bet(player):

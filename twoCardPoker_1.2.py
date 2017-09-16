@@ -3,7 +3,17 @@ import sys
 import serve
 import serve2
 
-global lst
+class Game:
+    lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    def setPlayer1(self,player):
+        self.player1 = player
+    def setPlayer2(self,player):
+        self.player2 = player
+
+class Player:
+
+
+# global lst
 global p1
 global p2
 global pot

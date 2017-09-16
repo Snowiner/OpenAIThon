@@ -134,8 +134,18 @@ def surrender():
     global p1stack
     global p2stack
     global betcnt
+    global data1
+    global data2
+
     print("Folded")
 
+    if(turnPlayer == p1):
+        f2.write(data2)
+    else:
+        f1.write(data1)
+
+    data1=""
+    data2=""
     notTurnPlayer[0] += pot
     pot = 0
 
@@ -295,8 +305,7 @@ def allIn():
 def betting():
     global pot
     global cur_bet
-    if(min()==0):
-        return
+    
     if (cur_bet >= turnPlayer[0]):
         allIn()
         return
@@ -309,7 +318,7 @@ def betting():
     else:
         print("another betting")
         if(turnPlayer[0] == 0):
-            return
+            surrender()
         playerChange()
         betting()
     return

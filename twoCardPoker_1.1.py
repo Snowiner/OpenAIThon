@@ -125,8 +125,7 @@ def fight():
         p1stack = 0
         p2stack = 0
 
-    resetGame()
-    singleGame()
+    return
 
 
 def surrender():
@@ -136,16 +135,15 @@ def surrender():
     global p2stack
     global betcnt
     print("Folded")
-    playerChange()
-    turnPlayer[0] += pot
+
+    notTurnPlayer[0] += pot
     pot = 0
 
     p1stack = 0
     p2stack = 0
     betcnt = 0
 
-    resetGame()
-    singleGame()
+    return
 
 
 def resetGame():
@@ -166,6 +164,7 @@ def bet(player):
         global betcnt, p1stack, p2stack, betMoney
 
         if (turnPlayer == p1):
+            print(p1)
             global data1
             # data1 = str(id(p1))+","
             data1 = str(p1[1]) + ","
@@ -227,11 +226,13 @@ def bet(player):
             print("CALL!")
         else:
             cur_bet = betMoney
+            playerChange()
             return
     else:
         if (betMoney == 0):
             surrender()
         else:
+            print(betMoney)
             print("invalid input occured, input should be over " + str(cur_bet))
             betMoney = 0
             bet(player)
@@ -240,6 +241,7 @@ def bet(player):
 def allIn():
     global pot
     global betcnt, p1stack, p2stack, turnPlayer
+    print("allin status")
     if (sys.argv[1] == 'test'):
         if (random.choice([True, False])):
             if (turnPlayer == p1):

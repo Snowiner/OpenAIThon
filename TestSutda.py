@@ -16,32 +16,52 @@ global f2
 global data
 global data1
 global data2
-data=""
-data1=""
-data2=""
 global p1stack
 global p2stack
-p1stack = 0
-p2stack = 0
 global betcnt
-betcnt = 0
 global setcost
-setcost = 10
 global showJokbo
 global showJokbo2
-showJokbo = ""
-showJokbo2 = ""
-p1 = []
-p2 = []
-p1.append(1000)
-p2.append(1000)
-pot = 0
-turnPlayer = p1
-notTurnPlayer = p2
 
-lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+def ValueReset():
+	global lst
+	global p1
+	global p2
+	global pot
+	global turnPlayer
+	global notTurnPlayer
+	global cur_bet
+	global f
+	global f1
+	global f2
+	global data
+	global data1
+	global data2
+	global p1stack
+	global p2stack
+	global betcnt
+	global setcost
+	global showJokbo
+	global showJokbo2
+	data=""
+	data1=""
+	data2=""
+	p1stack = 0
+	p2stack = 0
+	betcnt = 0
+	setcost = 10
+	showJokbo = ""
+	showJokbo2 = ""
+	p1 = []
+	p2 = []
+	p1.append(1000)
+	p2.append(1000)
+	pot = 0
+	turnPlayer = p1
+	notTurnPlayer = p2
+	lst = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-def Set(firstCard, secondCard) :
+def Set(firstCard, secondCard):
 	Jokbo = {'38GwangDDeng' : 100,
 			'GwangDDeng' : 95,
 			'DDeng' : 90,
@@ -283,10 +303,12 @@ def appending():
 def deadOneChecking():
 	if(p1[0]<1):
 		print("Player 1 LOSES")
-		return exit()
+		ValueReset()
+		singleGame()
 	elif(p2[0]<1):
 		print("Player 2 LOSES")
-		return exit()
+		ValueReset()
+		singleGame()
 	else:
 		return
 
@@ -335,4 +357,5 @@ if(sys.argv[1] == 'test'):
 	f1 = open('dataset_new.csv','a')
 	f2 = open('dataset2_new.csv','a')
 
+ValueReset()
 singleGame()

@@ -150,7 +150,10 @@ def bet(player):
 
 			betMoney = int(serve.betting(p1[1],p1[2],p1[0],p2[0],p1stack,p2stack,betcnt))
 			if betMoney < cur_bet:
-				betMoney = cur_bet
+				if random.randrange(cur_bet) > betMoney:
+					betMoney = 0
+				else:
+					betMoney = cur_bet
 			elif betMoney > turnPlayer[0]:
 				betMoney = turnPlayer[0]
 			# betMoney = random.randrange(cur_bet, turnPlayer[0] + 1)
@@ -171,7 +174,10 @@ def bet(player):
 
 			betMoney = int(serve2.betting(p2[1],p2[2],p2[0],p1[0],p2stack,p1stack,betcnt))
 			if betMoney < cur_bet:
-				betMoney = cur_bet
+				if random.randrange(cur_bet) > betMoney:
+					betMoney = 0
+				else:
+					betMoney = cur_bet
 			elif betMoney > turnPlayer[0]:
 				betMoney = turnPlayer[0]
 			# betMoney = random.randrange(cur_bet, turnPlayer[0] + 1)
@@ -328,4 +334,5 @@ if(sys.argv[1] == 'test'):
 	# f = open('testdata.txt','a')
 	f1 = open('dataset_new.csv','a')
 	f2 = open('dataset2_new.csv','a')
+
 singleGame()

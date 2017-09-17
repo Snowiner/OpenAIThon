@@ -37,7 +37,7 @@ class Game:
         temp = id(self.turnPlayer)
         self.turnPlayer = id(self.nonPlayer)
         self.nonPlayer = temp
-        
+
     def input_user(self):
         prevalue = input("betting range : " + self.cur_bet + " ~ " + self.players[self.turnPlayer].money)
         value = self.input_validator(prevalue)
@@ -64,6 +64,9 @@ class Game:
         else:
             return value
     
+    def evaluate(self , a, b):
+        return (a+b)%b
+
     def preCheck(self):
         for i in self.players:
             if(i.money == 0):
@@ -123,14 +126,14 @@ class Game:
             self.playerChange()
 
     def fight(self):
-        if (self.players[0].value() > self.players[1].value()):
+        if (self.evaluate(self.players[0].cards[0],self.players[0].cards[1]) > self.evaluate(self.players[1].cards[0],self.players[1].cards[1])):
             print("player1 wins")
             players[0].fileStream.write(players[0].data)
             self.players[0].money += self.pot
             self.clearBoard()
             self.available = 1
 
-        elif (self.players[0].value() < self.players[1].value()):
+        elif (self.evaluate(self.players[0].cards[0],self.players[0].cards[1]) < self.evaluate(self.players[1].cards[0],self.players[1].cards[1])):
             print("player2 wins")
             players[1].fileStream.write(players[1].data)
             self.players[1].money += self.pot

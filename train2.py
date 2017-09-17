@@ -3,7 +3,7 @@ import tensorflow as tf
 tf.set_random_seed(486)
 
 filename_queue = tf.train.string_input_producer(
-    ['dataset2.csv'], shuffle=False, name='filename_queue')
+    ['TwoSon_1.3.csv'], shuffle=False, name='filename_queue')
 reader = tf.TextLineReader()
 key, value = reader.read(filename_queue)
 record_defaults = [[0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.]]

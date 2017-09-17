@@ -9,7 +9,7 @@
 - 송남주
 - 류강현
 
-# Languages
+# Open Sources
+- Git
 - Python
-
-# License
+- Tensorflow

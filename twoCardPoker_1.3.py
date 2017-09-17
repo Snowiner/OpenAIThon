@@ -1,7 +1,7 @@
 import random
 
 class Player:
-	def __init__(self,type,path):
+	def __init__(self,type,path,name):
 		self.type = type
 		print(self.type)
 		self.path = path
@@ -9,6 +9,7 @@ class Player:
 		self.cards = []
 		self.data = ""
 		self.money = 1000
+		self.name = name
 
 	def dataClear(self):
 		self.data = ""
@@ -18,11 +19,11 @@ def evaluator(cards):
 
 def fight(player1, player2, pot):
 	if(evaluator(player1.cards)>evaluator(player2.cards)):
-		print("player1 wins")
+		print(player1.name+" wins")
 		player1.money += pot
 		return 0
 	elif(evaluator(player1.cards)<evaluator(player2.cards)):
-		print("player2 wins")
+		print(player2.name+" wins")
 		player2.money += pot
 		return 0
 	else:
@@ -68,8 +69,14 @@ def randomInput(player,call):
 		else:
 			return value
 
+def cardCollector(player1,player2,deck):
+	deck.append(player1.cards.pop())
+	deck.append(player1.cards.pop())
+	deck.append(player2.cards.pop())
+	deck.append(player2.cards.pop())
+
 def printMoney(player1,player2):
-	print(str(player1.money)+str(player2.money) )
+	print(str(player1.money)+"/"+str(player2.money) )
 
 def betting(player,call):
 	if(player.type == 'random'):
@@ -81,36 +88,48 @@ def flow():
 	endCall = 1
 	call = 0
 
-	player1 = Player('random','p1Data_1.3.csv')
-	player2 = Player('random','p2Data_1.3.csv')
+	player1 = Player('random','p1Data_1.3.csv','OneSon')
+	player2 = Player('random','p2Data_1.3.csv','TwoSon')
 	turn = player1
 
+	while(player1.money * player2.money != 0):
+		endCall = 1
+		call = 0
+		pot = 0
+		appender(deck,player1)
+		appender(deck,player2)
+		appender(deck,player1)
+		appender(deck,player2)
 
-	appender(deck,player1)
-	appender(deck,player2)
-	appender(deck,player1)
-	appender(deck,player2)
+		pot += basicCosting(player1,player2)
 
-	pot += basicCosting(player1,player2)
+		while(endCall):
+			gold = betting(turn,call)
+			print(turn.name+" bets "+str(gold))
+			if( gold == call and call != 0):
+				pot += gold
+				turn.money -= gold
+				endCall = fight(player1,player2, pot)
 
-	while(endCall):
-		gold = betting(turn,call)
-		if( gold == call and call != 0):
-			pot += gold
-			turn.money -= gold
-			endCall = fight(player1,player2, pot)
+			elif(gold == 0):
+				print(turn.name+" folds")
+				endCall = 0
+				turn = turnChange(player1,player2,turn)
+				turn.money += pot
+				pot = 0
+				turn = turnChange(player1,player2,turn)
 
-		elif(betting == 0):
-			endCall = 0
+			else:
+				turn.money -= gold
+				pot += gold
+				call = gold
+
 			turn = turnChange(player1,player2,turn)
-			turn.money += pot
-			pot = 0
+			print("pot = " + str(pot))
+			printMoney(player1,player2)
 
-		else:
-			turn.money -= gold
-			pot += gold
-			call = gold
-
-		print("pot = " + str(pot))
+		print("Game Done")
+		cardCollector(player1,player2,deck)
+		print(deck)
 
 flow()

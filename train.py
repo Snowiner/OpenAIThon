@@ -9,7 +9,7 @@ key, value = reader.read(filename_queue)
 record_defaults = [[0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.]]
 xy = tf.decode_csv(value, record_defaults=record_defaults)
 
-train_x_batch, train_y_batch = tf.train.batch([xy[0:-1], xy[-1:]], batch_size=1000)
+train_x_batch, train_y_batch = tf.train.batch([xy[0:-1], xy[-1:]], batch_size=500)
 
 X = tf.placeholder(tf.float32, shape=[None, 7])
 Y = tf.placeholder(tf.float32, shape=[None, 1])
@@ -51,7 +51,7 @@ sess.run(tf.global_variables_initializer())
 coord = tf.train.Coordinator()
 threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
-for step in range(5001):
+for step in range(2000):
     x_batch, y_batch = sess.run([train_x_batch, train_y_batch])
     cost_val, hy_val, _ = sess.run(
         [cost, hypothesis, train], feed_dict={X: x_batch, Y: y_batch, keep_prob: 0.7})
